@@ -1,9 +1,10 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
 project_name: kubectl-config-cleanup
 
 release:
   name_template: "Version {{.Version}}"
   github:
-    owner: B23admin
+    owner: TorchAIKC
     name: kubectl-config-cleanup
 
 before:
@@ -12,7 +13,9 @@ before:
 
 builds:
   - binary: kubectl-config_cleanup
-    ldflags: -s -w -X github.com/B23admin/kubectl-config-cleanup/buildinfo.Version=v{{.Version}} -X github.com/B23admin/kubectl-config-cleanup/buildinfo.GitSHA={{.FullCommit}}
+    ldflags: |
+      -s -w -X github.com/TorchAIKC/kubectl-config-cleanup/buildinfo.Version=v{{.Version}}
+      -X github.com/TorchAIKC/kubectl-config-cleanup/buildinfo.GitSHA={{.FullCommit}}
     env:
       - CGO_ENABLED=0
     goos:
@@ -29,13 +32,13 @@ builds:
 archives:
   - format_overrides:
       - goos: windows
-        format: zip
+        formats: [ "zip" ]
 
 checksum:
   name_template: 'checksums.txt'
 
 snapshot:
-  name_template: "{{ .Tag }}-next"
+  version_template: "{{ .Tag }}-next"
 
 changelog:
   sort: asc
