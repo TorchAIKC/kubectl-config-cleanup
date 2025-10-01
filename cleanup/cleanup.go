@@ -348,6 +348,11 @@ func (o *Options) keepContext(ctxname string) {
 	if ok {
 		o.ResultingConfig.Clusters[context.Cluster] = cluster
 	}
+
+	// GH-14: Maintain current context in result
+	if ctxname == o.RawConfig.CurrentContext {
+		o.ResultingConfig.CurrentContext = o.RawConfig.CurrentContext
+	}
 }
 
 func (o *Options) cleanupContext(ctxname string) {
